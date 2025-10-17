@@ -1,29 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import './ProjectDetail.css'; // 1단계에서 만든 CSS 파일을 불러옵니다.
+import { useParams } from 'react-router-dom'; // useParams 훅을 불러옵니다.
+import './ProjectDetail.css';
 
-function DetailPage() {
-    // API 데이터를 저장할 state 변수들을 만듭니다.
+function ProjectDetail() {
+    // 1. useParams를 이용해 URL의 :nasaId 부분을 변수로 가져옵니다.
+    const { nasaId } = useParams();
+
     const [imageData, setImageData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // 컴포넌트가 처음 렌더링될 때 API를 호출합니다.
+    // 2. useEffect의 의존성 배열에 nasaId를 추가합니다.
+    // 이렇게 하면 URL의 ID가 바뀔 때마다 API를 새로 호출합니다.
     useEffect(() => {
-        const nasaId = 'PIA04921'; // 이 ID는 나중에 props로 받을 수 있습니다.
+        // 3. 고정된 ID 대신 URL에서 가져온 nasaId 변수를 사용합니다.
+        if (!nasaId) return;
 
         const fetchAndDisplayData = async () => {
+            setLoading(true); // ID가 바뀔 때마다 다시 로딩 상태로 설정
             try {
                 const response = await fetch(`https://images-api.nasa.gov/search?nasa_id=${nasaId}`);
+                // ... (이하 API 호출 로직은 기존과 동일)
                 if (!response.ok) throw new Error('Network response was not ok.');
-
                 const searchData = await response.json();
                 if (!searchData.collection.items || searchData.collection.items.length === 0) {
                     throw new Error(`'${nasaId}'에 해당하는 데이터를 찾을 수 없습니다.`);
                 }
                 const item = searchData.collection.items[0];
                 const data = item.data[0];
-
-                // 받아온 데이터를 하나의 객체로 정리합니다.
                 const copyrightMatch = data.description?.match(/Credit:|Image Credit:/i);
                 setImageData({
                     imageUrl: item.links[0].href,
@@ -38,12 +42,12 @@ function DetailPage() {
             } catch (err) {
                 setError(err.message);
             } finally {
-                setLoading(false); // 로딩 종료
+                setLoading(false);
             }
         };
 
         fetchAndDisplayData();
-    }, []); // 빈 배열은 이 useEffect가 한번만 실행되도록 합니다.
+    }, [nasaId]); // 2번 설명: 의존성 배열
 
     // 로딩 중일 때 보여줄 화면
     if (loading) {
@@ -99,4 +103,4 @@ function DetailPage() {
     );
 }
 
-export default DetailPage;
+export default ProjectDetail;
