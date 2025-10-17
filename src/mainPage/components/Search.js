@@ -1,17 +1,15 @@
-import React, { useState } from "react";
+// Search.js
+import React from "react";
 
-function Search(){  
-    const[searchTerm, setSearchTerm] = useState("");
-
-    return(
-        <>
-            <input
-                type="search"
-                placeholder="find your space"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-            />
-        </>
+// Receive props from MainPage
+function Search({ searchTerm, onSearchChange }) {
+    return (
+        <input
+            type="search"
+            placeholder="Find your space"
+            value={searchTerm} // Value comes from props
+            onChange={(e) => onSearchChange(e.target.value)} // Call function from props
+        />
     );
 }
 

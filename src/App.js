@@ -14,13 +14,6 @@ function App() {
             <Route path="/" element={
               <div>
                 <MainPage />
-
-                {/* ✅ 1. 이동할 때 샘플 ID를 URL에 포함시켜줍니다. */}
-                <Link to="/detail/PIA04921">
-                  <button className="btn btn-primary btn-lg">
-                    상세 정보 보러가기
-                  </button>
-                </Link>
               </div>
             } />
 

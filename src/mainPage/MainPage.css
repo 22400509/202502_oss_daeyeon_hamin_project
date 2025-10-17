@@ -55,7 +55,6 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    height: 300vh;
 }
 
 #title {
@@ -69,4 +68,8 @@ body {
     font-size: 2vw;
     color: white;
     text-align: center;
+}
+
+label {
+    color: white;
 }
