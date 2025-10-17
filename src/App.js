@@ -1,10 +1,12 @@
-import logo from './logo.svg';
 import './App.css';
-import MainPage from './mainPage/MainPage';
+import { use, useState } from 'react';
+import DetailPage from './ProjectDetail';
 
 function App() {
   return (
-    <MainPage/>
+    <>
+      <DetailPage/>
+    </>
   );
 }
 
