@@ -1,20 +1,24 @@
 import React from "react";
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import './MainPage.css';
+import background from "./images/z2 1.svg"
+import Search from "./components/Search";
 
 function MainPage() {
     return (
         <>
             <div class="parallax-container">
-                <img id="foreground-img" src="z2 1.svg" alt="Astronaut in foreground"/>
-                    <h1 >NASA, Time to shine</h1>
-                    <a href="#bottom-section" id="scroll-btn">Explore</a>
+                <img id="foreground-img" src={background} alt="Astronaut in foreground" />
+                <div>
+                    <h1 id="title">ASTROLENS</h1>
+                    <p id="subtitle">One, with the Universe</p>
+                </div>
+                <a href="#bottom-section" id="scroll-btn">Explore</a>
+
             </div>
 
             <div id="bottom-section">
-                <p>You made it to the content!</p>
+                <Search/>
+                <input type="date"></input>
             </div>
         </>
     );
