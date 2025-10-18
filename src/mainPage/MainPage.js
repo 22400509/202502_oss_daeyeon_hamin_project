@@ -1,7 +1,8 @@
 // MainPage.js
 import React, { useState, useEffect } from "react";
 import './MainPage.css';
-import background from "./images/z2 1.svg"
+import Astronaut from "./images/z2 1.svg"
+import SpaceShip from "./images/z2 2.svg"
 import Search from "./components/Search";
 import TagFilter from "./components/Filter";
 import Gallery from "./components/ImageCards/Gallery";
@@ -101,7 +102,8 @@ function MainPage() {
         <>
             {/* Your parallax-container and its content */}
             <div className="parallax-container">
-                <img id="foreground-img" src={background} alt="Astronaut in foreground" />
+                <img className="foreground-img" src={Astronaut} alt="Astronaut in foreground" />
+                <img className="foreground-img" src={SpaceShip} alt="SpaceShip in foreground" />
                 <div>
                     <h1 id="title">ASTROLENS</h1>
                     <p id="subtitle">One, with the Universe</p>
