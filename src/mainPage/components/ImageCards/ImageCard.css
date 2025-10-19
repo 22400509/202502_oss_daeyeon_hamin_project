@@ -5,7 +5,7 @@
   border-radius: 12px;
   overflow: hidden;
   margin-bottom: 1rem;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .card img {
@@ -13,6 +13,8 @@
   display: block;
   height: auto;
   object-fit: cover;
+  /* aspect-ratio: 4 / 3; */
+  max-height: 300px;
 }
 
 /* Overlay content shown on hover */
@@ -21,7 +23,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0));
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
   color: white;
   padding: 1rem;
   opacity: 0;
