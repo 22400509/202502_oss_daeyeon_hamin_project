@@ -1,8 +1,9 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import DetailPage from './ProjectDetail'; // 파일 이름이 ProjectDetail.js라고 가정
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import MainPage from './mainPage/MainPage';
+// ProjectCreat 파일을 CreatPage로 import 합니다.
+import CreatPage from './ProjectCreat'; 
 
 function App() {
   return (
@@ -10,15 +11,14 @@ function App() {
       <Router>
         <div className="App">
           <Routes>
-            {/* 기본 경로('/')에서는 홈 화면을 보여줍니다. */}
-            <Route path="/" element={
-              <div>
-                <MainPage />
-              </div>
-            } />
+            {/* 기본 경로('/')에서는 MainPage를 보여줍니다. */}
+            <Route path="/" element={<MainPage />} />
 
-            {/* ✅ 2. :nasaId를 추가해 URL의 ID를 변수로 받을 수 있게 합니다. */}
-            <Route path="/detail/:nasaId" element={<DetailPage />} />
+            {/* '/create' 경로에 CreatPage 컴포넌트를 연결합니다. */}
+            <Route path="/create" element={<CreatPage />} />
+            
+            {/* 상세 페이지 경로는 나중에 구현할 수 있도록 주석 처리해 둡니다. */}
+            {/* <Route path="/detail/:nasaId" element={<DetailPage />} /> */}
           </Routes>
         </div>
       </Router>
@@ -27,3 +27,4 @@ function App() {
 }
 
 export default App;
+
