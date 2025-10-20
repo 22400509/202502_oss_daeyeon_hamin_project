@@ -108,9 +108,3 @@ label {
   background-color: rgba(0, 123, 255, 0.1); /* 호버 시 약한 배경 */
 }
 
-.btn-primary { /* Bootstrap 기본 클래스 재정의 또는 새 클래스 사용 */
-  background-color: #0056b3; /* 선택 시 더 진한 파란색 */
-  border-color: #0056b3;
-  color: white;
-  box-shadow: 0 0 8px rgba(0, 123, 255, 0.6); /* 선택 시 빛 효과 */
-}
