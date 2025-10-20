@@ -1,0 +1,20 @@
+/* Search 컴포넌트의 input 태그에 적용할 클래스 예시 */
+.search-input {
+  background-color: #1a1d27; /* 어두운 배경 */
+  color: #e0e6ef; /* 밝은 글씨 */
+  border: 1px solid #333a4d; /* 약간 밝은 테두리 */
+  border-radius: 20px; /* 둥근 모서리 */
+  padding: 8px 15px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.search-input::placeholder {
+  color: #6b7280; /* 플레이스홀더 색상 */
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #007bff; /* 포커스 시 파란색 테두리 */
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* 은은한 파란색 빛 효과 */
+}

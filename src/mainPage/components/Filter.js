@@ -18,7 +18,7 @@ const TagFilter = ({ selectedTags, onTagChange }) => {
         <div className="d-inline-block">
             <div className="d-flex gap-2">
                 {allTags.map((tag) => (
-                    <button
+                    <button 
                         key={tag}
                         className={`btn btn-sm ${selectedTags.includes(tag) ? 'btn-primary' : 'btn-outline-primary'}`}
                         onClick={() => toggleTag(tag)}
