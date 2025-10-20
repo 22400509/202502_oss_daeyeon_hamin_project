@@ -12,7 +12,7 @@ body {
     height: 100vh;
     overflow: hidden;
 
-    background-image: url("./images/z2.png");
+    background-image: url("./images/nothing.png");
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
@@ -72,4 +72,45 @@ body {
 
 label {
     color: white;
+}
+
+/* 날짜 선택 input 태그에 적용할 클래스 예시 */
+.date-input {
+  background-color: #1a1d27;
+  color: #e0e6ef;
+  border: 1px solid #333a4d;
+  border-radius: 5px;
+  padding: 8px 10px;
+  color-scheme: dark; /* 브라우저 기본 달력을 어둡게 표시하도록 유도 */
+}
+
+/* 정렬 select 태그에 적용할 클래스 예시 */
+.sort-select {
+  background-color: #1a1d27;
+  color: #e0e6ef;
+  border: 1px solid #333a4d;
+  border-radius: 5px;
+  padding: 8px 10px;
+  appearance: none; 
+}
+
+/* TagFilter 컴포넌트 내부 버튼에 적용할 스타일 (기존 btn 클래스와 함께 사용) */
+.btn-outline-primary { /* Bootstrap 기본 클래스 재정의 또는 새 클래스 사용 */
+  color: #a0a0a0;
+  border-color: #333a4d;
+  background-color: transparent;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+  color: #ffffff;
+  border-color: #007bff;
+  background-color: rgba(0, 123, 255, 0.1); /* 호버 시 약한 배경 */
+}
+
+.btn-primary { /* Bootstrap 기본 클래스 재정의 또는 새 클래스 사용 */
+  background-color: #0056b3; /* 선택 시 더 진한 파란색 */
+  border-color: #0056b3;
+  color: white;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.6); /* 선택 시 빛 효과 */
 }

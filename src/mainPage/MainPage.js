@@ -114,10 +114,10 @@ function MainPage() {
             <div id="bottom-section">
                 <div className="d-flex justify-content-evenly flex-wrap align-items-center gap-3 p-3">
                     <Search searchTerm={searchTerm} onSearchChange={setSearchTerm} />
-                    <input type="date" value={selectedDate} onChange={(e) => setSelectedDate(e.target.value)} />
+                    <input type="date" className="date-input" value={selectedDate} onChange={(e) => setSelectedDate(e.target.value)} />
                     <div id="sort-container">
                         <label htmlFor="sort">Sort by:</label>
-                        <select id="sort" value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
+                        <select className="sort-select" id="sort" value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
                             <option value="date">Date</option>
                             <option value="alphabetical">A-Z</option>
                             <option value="reverse-alphabetical">Z-A</option>
