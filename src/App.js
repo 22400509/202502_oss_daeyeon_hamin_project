@@ -4,6 +4,7 @@ import './App.css';
 import MainPage from './mainPage/MainPage';
 // ProjectCreat 파일을 CreatPage로 import 합니다.
 import CreatPage from './ProjectCreat'; 
+import DetailPage from './ProjectDetail';
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
             <Route path="/create" element={<CreatPage />} />
             
             {/* 상세 페이지 경로는 나중에 구현할 수 있도록 주석 처리해 둡니다. */}
-            {/* <Route path="/detail/:nasaId" element={<DetailPage />} /> */}
+            <Route path="/detail/:nasaId" element={<DetailPage />} />
           </Routes>
         </div>
       </Router>
