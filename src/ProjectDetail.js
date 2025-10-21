@@ -72,7 +72,7 @@ function ProjectDetail() {
                     <div className="card" id="insidecard" style={{ color: '#ffffff', borderRadius: '5px' }}>
                         <div className="card-header" style={{ backgroundColor: '#111827', borderRadius: '5px' }}>
                             <h2 id="info-title" className="mb-0">{imageData.title}</h2>
-                            <div>
+                            <div id="btn-group" className="mt-2"> 
                                 <button id="edit" className="btn btn-primary">EDIT</button>
                                 <button id="delete" className="btn btn-danger ms-2">DELETE</button>
                             </div>

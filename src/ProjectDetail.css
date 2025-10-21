@@ -5,6 +5,9 @@
     gap: 20px;
 }
 
+.App{
+    background-image: url("mainPage/images/image.png");
+}
 .top p {
     font-size: 1.8rem;
     font-weight: bold;
@@ -32,6 +35,11 @@
     align-items: center;
     background-color: #1f2937;
 }
+#btn-group {
+    display: flex;
+    gap: 10px;
+}
+
 
 #main-image {
     width: 100%;
