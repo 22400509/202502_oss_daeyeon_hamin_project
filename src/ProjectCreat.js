@@ -1,10 +1,17 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './ProjectCreat.css'; // 수정된 CSS 파일을 import 합니다.
+import axios from 'axios'; // axios import
+import './ProjectCreat.css'; 
 
 function ProjectCreat() {
     const navigate = useNavigate();
+    
+    // --- API Keys and Endpoints (여기에 본인의 키와 URL을 넣어주세요!) ---
+    // IMGBB API 키는 이미 넣어주신 것으로 사용합니다.
     const IMGBB_API_KEY = "29cb328284db2e5278ce6bbcf2993793"; 
+    // MockAPI.io URL은 MainPage.js와 동일하게 설정해야 합니다.
+    const MOCK_API_URL = "https://68f39165fd14a9fcc42925d9.mockapi.io/astrolensElements"; // <<<<<<<< 여기에 MockAPI.io URL을 입력하세요!
+    // ------------------------------------------------------------------
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -31,8 +38,8 @@ function ProjectCreat() {
     };
 
     const uploadToImgBB = async (file) => {
-        if (IMGBB_API_KEY === "YOUR_IMGBB_API_KEY" || !IMGBB_API_KEY) {
-            showMessage('API 키를 입력해주세요!', 'error');
+        if (IMGBB_API_KEY === "YOUR_IMGBB_API_KEY" || !IMGBB_API_KEY || IMGBB_API_KEY === "") { // 빈 문자열 체크 추가
+            showMessage('IMGBB API 키를 입력해주세요!', 'error');
             return;
         }
         setIsUploading(true);
@@ -50,11 +57,11 @@ function ProjectCreat() {
                 setImageUrl(result.data.url);
                 setUploadTime(result.data.time);
             } else {
-                throw new Error(result.error.message);
+                throw new Error(result.error.message || 'IMGBB 업로드 실패');
             }
         } catch (error) {
             showMessage(`업로드 실패: ${error.message}`, 'error');
-            console.error(error);
+            console.error("IMGBB 업로드 오류:", error);
         } finally {
             setIsUploading(false);
         }
@@ -84,27 +91,51 @@ function ProjectCreat() {
         }
     };
 
-    const handleSubmit = () => {
+    // --- MockAPI.io에 데이터 제출하는 handleSubmit 함수로 수정 ---
+    const handleSubmit = async () => { // async 함수로 변경
         if (!imageUrl) {
             showMessage('이미지를 먼저 업로드해주세요.', 'error');
             return;
         }
-        const newPost = {
-            id: `user-${Date.now()}`,
-            title,
-            description,
-            photographer,
-            date: new Date(uploadTime * 1000).toISOString(),
-            category: imageType,
-            copyright,
-            imageUrl,
-            tags: keywords,
-            isUserPost: true
-        };
-        const existingPosts = JSON.parse(localStorage.getItem('photos')) || [];
-        existingPosts.unshift(newPost);
-        localStorage.setItem('photos', JSON.stringify(existingPosts));
-        navigate('/');
+        if (MOCK_API_URL === "https://YOUR_MOCKAPI_PROJECT_ID.mockapi.io/astrolensElements" || !MOCK_API_URL) {
+            showMessage('MockAPI.io URL을 설정해주세요!', 'error');
+            return;
+        }
+
+        showMessage('데이터를 저장하는 중...', 'loading');
+        try {
+            const newPost = {
+                // id는 MockAPI.io가 자동 생성하므로 여기서는 제거
+                title,
+                description,
+                photographer,
+                // 날짜 형식을 ISO String으로 저장하여 MockAPI.io와 호환되게 함
+                date: new Date(uploadTime * 1000).toISOString(), 
+                category: imageType,
+                copyright,
+                imageUrl,
+                tags: keywords,
+                isUserPost: true // 사용자 게시물임을 명시
+            };
+
+            const response = await axios.post(MOCK_API_URL, newPost);
+            
+            if (response.status === 201) { // MockAPI.io는 POST 성공 시 201 Created 반환
+                showMessage('게시물 등록 성공!', 'success');
+                // MainPage로 돌아가서 새로고침 없이도 새 게시물이 보이게 하려면
+                // MainPage에서 `handleUserImageUpload` 같은 콜백 함수를 prop으로 받아 처리해야 하지만,
+                // 현재 구조에서는 navigate('/') 후 MainPage가 마운트될 때 다시 데이터를 불러오는 방식이 간단합니다.
+                navigate('/'); 
+            } else {
+                throw new Error(`MockAPI.io 저장 실패: ${response.status} ${response.statusText}`);
+            }
+        } catch (error) {
+            showMessage(`게시물 등록 실패: ${error.message}`, 'error');
+            console.error("MockAPI.io 게시물 등록 오류:", error);
+        } finally {
+            // isUploading 상태는 IMGBB 업로드 시에만 사용되므로, 여기서는 별도로 관리하지 않아도 됩니다.
+            // 필요하다면 isSubmitting 같은 새로운 상태를 만들어 관리할 수 있습니다.
+        }
     };
     
     const handleDragOver = (e) => { e.preventDefault(); setIsDragging(true); };
@@ -119,7 +150,6 @@ function ProjectCreat() {
     };
 
     return (
-        // ▼▼▼ [ 여기에 컨테이너 클래스를 적용합니다 ] ▼▼▼
         <div className="creat-page-container">
             <div className="form-container">
                 <div className="form-header">
@@ -168,16 +198,16 @@ function ProjectCreat() {
                    <button 
                         onClick={handleSubmit} 
                         className="btn btn-primary"
-                        disabled={isUploading}
+                        disabled={isUploading} // IMGBB 업로드 중이면 Submit 버튼 비활성화
                     >
-                        {isUploading ? '업로드 중...' : 'Submit Photo'}
+                        {isUploading ? '이미지 업로드 중...' : 'Submit Photo'}
                    </button>
                    <div className={`message-box 
                         ${message.type === 'success' ? 'success' : ''}
                         ${message.type === 'error' ? 'error' : ''}
                         ${message.type === 'loading' ? 'loading' : ''}`}
                     >
-                       {message.text}
+                        {message.text}
                     </div>
                 </div>
             </div>
@@ -186,4 +216,3 @@ function ProjectCreat() {
 }
 
 export default ProjectCreat;
-
