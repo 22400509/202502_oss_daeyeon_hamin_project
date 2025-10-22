@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'; // ✅ 1. useParams �
 import './ProjectUpdate.css'; // (CSS 파일은 그대로 사용)
 
 // ✅ 2. 배포된 mockapi.io 주소 (본인 주소로 변경하세요!)
-const MOCK_API_URL = 'https://[YOUR_MOCKAPI_ID].mockapi.io/api/v1/photos';
+const MOCK_API_URL = 'https://68f39165fd14a9fcc42925d9.mockapi.io/astrolensElements"';
 // ✅ 3. ImgBB API 키 (환경변수로 숨기는 것을 권장합니다)
 const IMGBB_API_KEY = "29cb328284db2e5278ce6bbcf2993793"; 
 
