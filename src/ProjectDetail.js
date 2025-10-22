@@ -83,6 +83,21 @@ function ProjectDetail() {
                 const data = item.data[0];
                 const copyrightMatch = data.description?.match(/Credit:|Image Credit:/i);
                 console.log("NASA API에서 가져온 Image URL:", item.links[0].href);
+                const keywords = data.keywords || [];
+                const findSimpleCategory = (tags) => {
+                        const simpleCategories = ['Nebula', 'Galaxy', 'Star', 'Planet'];
+                        // 키워드를 하나씩 돌면서 'nebula' (소문자)가 포함되어 있는지 확인
+                        for (const tag of tags) {
+                            const lowerTag = tag.toLowerCase();
+                            for (const cat of simpleCategories) {
+                                if (lowerTag.includes(cat.toLowerCase())) {
+                                    return cat; // 찾으면 "Nebula" 반환
+                                }
+                            }
+                        }
+                        return null; // 못 찾으면 null 반환
+                    };
+                    const simpleCategory = findSimpleCategory(keywords);
                 // Hamin이 수정함: imageData 상태를 직접 업데이트
                 setImageData({
                     imageUrl: item.links[0].href,
@@ -92,7 +107,8 @@ function ProjectDetail() {
                     photographer: data.secondary_creator || '정보 없음',
                     keywords: data.keywords?.slice(0, 5) || [],
                     copyright: copyrightMatch ? copyrightMatch.input.substring(copyrightMatch.index).split('\n')[0] : 'NASA/Public Domain',
-                    isUserPost: false // Hamin이 추가함: NASA 게시물임을 명시
+                    isUserPost: false, // Hamin이 추가함: NASA 게시물임을 명시
+                    category: simpleCategory || 'NASA'
                 });
                 // Hamin이 추가함: 원래 NASA API 호출 로직 끝
             } catch (err) {
