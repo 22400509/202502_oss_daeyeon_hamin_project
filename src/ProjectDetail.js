@@ -137,10 +137,10 @@ function ProjectDetail() {
                             <div>
                                 {/* Hamin이 추가함: isUserPost에 따라 EDIT/DELETE 버튼 조건부 렌더링 */}
                                 {imageData.isUserPost ? (
-                                    <>
+                                    <div id="btn-group">
                                         <button id="edit" className="btn btn-primary">EDIT</button>
                                         <button id="delete" className="btn btn-danger ms-2">DELETE</button>
-                                    </>
+                                    </div>
                                 ) : (
                                     // Hamin이 추가함: NASA 이미지의 경우 "NASA Image" 표시 또는 아무것도 표시 안 함
                                     <span style={{ color: '#aaa', fontSize: '0.9em' }}>NASA Image</span>
