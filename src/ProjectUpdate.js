@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'; // ✅ 1. useParams �
 import './ProjectUpdate.css'; // (CSS 파일은 그대로 사용)
 
 // ✅ 2. 배포된 mockapi.io 주소 (본인 주소로 변경하세요!)
-const MOCK_API_URL = 'https://68f39165fd14a9fcc42925d9.mockapi.io/astrolensElements"';
+const MOCK_API_URL = 'https://68f39165fd14a9fcc42925d9.mockapi.io/astrolensElements';
 // ✅ 3. ImgBB API 키 (환경변수로 숨기는 것을 권장합니다)
 const IMGBB_API_KEY = "29cb328284db2e5278ce6bbcf2993793"; 
 
@@ -124,7 +124,7 @@ function ProjectUpdate() {
         reader.readAsDataURL(file);
     };
 
-    // --- 5. 키워드 핸들러 (기존과 동일) ---
+   
     const handleKeywordKeyDown = (e) => {
         if (e.key === 'Enter' || e.key === ',') {
             e.preventDefault();
@@ -136,39 +136,38 @@ function ProjectUpdate() {
         }
     };
 
-    // --- 6. 최종 제출 핸들러 (대폭 수정됨) ---
-    // ✅ 13. 'handleSubmit' -> 'PUT' 요청으로 변경
+   
     const handleSubmit = async () => {
         setIsSubmitting(true);
-        let finalImageUrl = imageUrl; // 1. 일단 "기존" 이미지 URL로 설정
+        let finalImageUrl = imageUrl; 
 
         try {
-            // 2. 만약 '새로운' 파일이 선택되었다면,
+           
             if (newFile) {
-                const uploadedUrl = await uploadToImgBB(newFile); // ImgBB에 업로드
+                const uploadedUrl = await uploadToImgBB(newFile); 
                 if (uploadedUrl) {
-                    finalImageUrl = uploadedUrl; // URL을 "새" URL로 교체
+                    finalImageUrl = uploadedUrl; 
                 } else {
                     throw new Error('새 이미지 업로드에 실패하여 중단합니다.');
                 }
             }
             
-            // 3. '수정된' 포스트 객체 생성
+         
             const updatedPost = {
                 title,
                 description,
                 photographer,
-                date: new Date().toISOString(), // 수정한 날짜로 갱신
+                date: new Date().toISOString(), 
                 category: imageType,
                 copyright,
-                imageUrl: finalImageUrl, // ✅ 최종 이미지 URL (새것 또는 기존것)
+                imageUrl: finalImageUrl, 
                 tags: keywords,
                 isUserPost: true
             };
 
-            // 4. 'localStorage'가 아닌 'mockapi.io'로 'PUT' 요청
+           
             const response = await fetch(`${MOCK_API_URL}/${id}`, {
-                method: 'PUT', // '생성(POST)'이 아닌 '수정(PUT)'
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -181,7 +180,6 @@ function ProjectUpdate() {
 
             showMessage('수정 완료!', 'success');
             
-            // 5. 1초 후 수정된 상세 페이지로 이동
             setTimeout(() => {
                 navigate(`/detail/${id}?user=true`);
             }, 1000);
@@ -194,7 +192,7 @@ function ProjectUpdate() {
         }
     };
     
-    // --- 7. 드래그 앤 드롭 핸들러 (기존과 동일) ---
+
     const handleDragOver = (e) => { e.preventDefault(); setIsDragging(true); };
     const handleDragLeave = (e) => { e.preventDefault(); setIsDragging(false); };
     const handleDrop = (e) => {
@@ -206,21 +204,19 @@ function ProjectUpdate() {
         }
     };
 
-    // --- 8. JSX (렌더링) ---
     
-    // 14. 기존 데이터 로딩 중일 때
     if (isLoading) {
         return <div style={{ color: 'white', textAlign: 'center', fontSize: '2rem', paddingTop: '5rem' }}>
             데이터 불러오는 중...
         </div>;
     }
 
-    // 15. 로딩 완료 후 폼 렌더링
+
     return (
         <div className="creat-page-container">
             <div className="form-container">
                 <div className="form-header">
-                    <h2>ASTROLENS (수정하기)</h2> {/* 16. 제목 변경 */}
+                    <h2>ASTROLENS (수정하기)</h2> 
                 </div>
                 <div className="form-body">
                     <div 
@@ -230,7 +226,7 @@ function ProjectUpdate() {
                         onDragLeave={handleDragLeave}
                         onDrop={handleDrop}
                     >
-                        {/* 17. preview state로 미리보기 표시 (기존/신규) */}
+                       
                         {!preview && (
                             <>
                                 <svg className="w-12 h-12 text-stone-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
@@ -241,7 +237,6 @@ function ProjectUpdate() {
                         <input type="file" ref={fileInputRef} className="hidden" accept="image/*" onChange={(e) => handleFile(e.target.files[0])}/>
                     </div>
                     
-                    {/* 18. 모든 input에 value와 onChange를 연결 (기존 데이터가 폼에 채워짐) */}
                     <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="form-input" placeholder="Title" />
                     <textarea value={description} onChange={(e) => setDescription(e.target.value)} className="form-input" placeholder="Description" rows="4"></textarea>
                     <input type="text" value={photographer} onChange={(e) => setPhotographer(e.target.value)} className="form-input" placeholder="Photographer" />
@@ -254,14 +249,13 @@ function ProjectUpdate() {
                     </select>
                     <input type="text" value={copyright} onChange={(e) => setCopyright(e.target.value)} className="form-input" placeholder="Copyright" />
                     
-                    {/* 19. imageUrl 입력란은 굳이 필요 없으므로 제거하거나 readOnly로 둬도 됩니다. */}
-                    {/* <input type="text" value={imageUrl} className="form-input" placeholder="Image URL" readOnly /> */}
+                    <input type="text" value={imageUrl} className="form-input" placeholder="Image URL" readOnly />
                     
                     <div>
                         <input 
                             type="text" 
                             value={keywordInput}
-                            onChange={(e) => setKeywordInput(e.g.target.value)}
+                            onChange={(e) => setKeywordInput(e.target.value)}
                             onKeyDown={handleKeywordKeyDown}
                             className="form-input" 
                             placeholder="Keywords (press Enter to add)" 
@@ -275,9 +269,9 @@ function ProjectUpdate() {
                    <button 
                        onClick={handleSubmit} 
                        className="btn btn-primary"
-                       disabled={isSubmitting} // 20. isUploading -> isSubmitting
+                       disabled={isSubmitting} 
                    >
-                       {isSubmitting ? '수정 중...' : 'Update Photo'} {/* 21. 버튼 텍스트 변경 */}
+                       {isSubmitting ? '수정 중...' : 'Update Photo'} 
                    </button>
                    <div className={`message-box 
                        ${message.type === 'success' ? 'success' : ''}
