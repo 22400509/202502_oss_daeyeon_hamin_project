@@ -1,16 +1,15 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'; // axios import
+import axios from 'axios'; 
 import './ProjectCreat.css'; 
 
 function ProjectCreat() {
     const navigate = useNavigate();
     
-    // --- API Keys and Endpoints (여기에 본인의 키와 URL을 넣어주세요!) ---
-    // IMGBB API 키는 이미 넣어주신 것으로 사용합니다.
+   
     const IMGBB_API_KEY = "29cb328284db2e5278ce6bbcf2993793"; 
-    // MockAPI.io URL은 MainPage.js와 동일하게 설정해야 합니다.
-    const MOCK_API_URL = "https://68f39165fd14a9fcc42925d9.mockapi.io/astrolensElements"; // <<<<<<<< 여기에 MockAPI.io URL을 입력하세요!
+   
+    const MOCK_API_URL = "https://68f39165fd14a9fcc42925d9.mockapi.io/astrolensElements"; 
     // ------------------------------------------------------------------
 
     const [title, setTitle] = useState('');
@@ -91,8 +90,8 @@ function ProjectCreat() {
         }
     };
 
-    // --- MockAPI.io에 데이터 제출하는 handleSubmit 함수로 수정 ---
-    const handleSubmit = async () => { // async 함수로 변경
+    
+    const handleSubmit = async () => { 
         if (!imageUrl) {
             showMessage('이미지를 먼저 업로드해주세요.', 'error');
             return;
@@ -105,26 +104,21 @@ function ProjectCreat() {
         showMessage('데이터를 저장하는 중...', 'loading');
         try {
             const newPost = {
-                // id는 MockAPI.io가 자동 생성하므로 여기서는 제거
                 title,
                 description,
                 photographer,
-                // 날짜 형식을 ISO String으로 저장하여 MockAPI.io와 호환되게 함
                 date: new Date(uploadTime * 1000).toISOString(), 
                 category: imageType,
                 copyright,
                 imageUrl,
                 tags: keywords,
-                isUserPost: true // 사용자 게시물임을 명시
+                isUserPost: true
             };
 
             const response = await axios.post(MOCK_API_URL, newPost);
             
-            if (response.status === 201) { // MockAPI.io는 POST 성공 시 201 Created 반환
+            if (response.status === 201) {
                 showMessage('게시물 등록 성공!', 'success');
-                // MainPage로 돌아가서 새로고침 없이도 새 게시물이 보이게 하려면
-                // MainPage에서 `handleUserImageUpload` 같은 콜백 함수를 prop으로 받아 처리해야 하지만,
-                // 현재 구조에서는 navigate('/') 후 MainPage가 마운트될 때 다시 데이터를 불러오는 방식이 간단합니다.
                 navigate('/'); 
             } else {
                 throw new Error(`MockAPI.io 저장 실패: ${response.status} ${response.statusText}`);
@@ -133,8 +127,7 @@ function ProjectCreat() {
             showMessage(`게시물 등록 실패: ${error.message}`, 'error');
             console.error("MockAPI.io 게시물 등록 오류:", error);
         } finally {
-            // isUploading 상태는 IMGBB 업로드 시에만 사용되므로, 여기서는 별도로 관리하지 않아도 됩니다.
-            // 필요하다면 isSubmitting 같은 새로운 상태를 만들어 관리할 수 있습니다.
+
         }
     };
     
