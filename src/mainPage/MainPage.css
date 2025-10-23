@@ -1,218 +1,220 @@
+/* src/mainPage/MainPage.css */
+
 html {
-
     scroll-behavior: smooth;
-
 }
-
-
 
 body {
-
     margin: 0;
-
     font-family: sans-serif;
-
 }
 
-
-
+/* --- 데스크톱 기본 스타일 (MainPage.js의 JSX 구조에 맞게) --- */
 .parallax-container {
-
     position: relative;
-
     height: 100vh;
-
     overflow: hidden;
-
-
-
-    background-image: url("./images/nothing.png");
-
-    background-attachment: fixed;
-
+    background-image: url("./images/nothing.png"); /* 데스크톱 배경 */
+    background-attachment: fixed; /* 데스크톱 패럴랙스 효과 */
     background-position: center;
-
     background-repeat: no-repeat;
-
     background-size: cover;
-
-
-
-    display: grid;
-
+    display: grid; /* 데스크톱 레이아웃 유지 */
     place-items: center;
-
 }
 
-
-
-.foreground-img {
-
+.foreground-img { /* Hamin이 수정함: 데스크톱용 위치와 크기 */
     position: absolute;
-
-    top: 0;
-
-    left: 0;
-
-    width: 100%;
-
-    height: 100%;
-
-    object-fit: cover;
-
+    height: auto;
+    object-fit: contain;
     object-position: center;
-
     z-index: 10;
-
+    transition: all 0.3s ease-out; /* Hamin이 추가함: 부드러운 전환 효과 */
 }
 
-
+/* Hamin이 추가함: 데스크톱 전경 이미지 개별 스타일 */
+.astronaut-img { 
+    left: 10%; bottom: 5%; width: 20vw; max-width: 250px;
+}
+.spaceship-img { 
+    right: 15%; bottom: 0%; width: 25vw; max-width: 300px;
+}
 
 #scroll-btn {
-
     padding: 15px 30px;
-
     font-size: 1.2rem;
-
     color: white;
-
     background-color: #007BFF;
-
     text-decoration: none;
-
     border-radius: 8px;
-
     z-index: 20;
-
     transition: all 0.3s ease;
-
 }
-
-
 
 #scroll-btn:hover {
-
     background-color: #0056b3;
-
     transform: translateY(-3px);
-
 }
-
-
 
 #bottom-section {
-
     background-image: url("images/image.png");
-
-    background-attachment: fixed;
-
+    background-attachment: fixed; /* 데스크톱 fixed 배경 유지 */
     background-position: center;
-
     background-repeat: no-repeat;
-
     background-size: cover;
-
+    padding: 20px; /* Hamin이 추가함: 데스크톱 기본 패딩 */
 }
-
-
 
 #title {
-
-    font-size: 6vw;
-
+    font-size: 6vw; /* 데스크톱 폰트 크기 유지 */
     color: white;
-
     margin: 0;
-
     padding: 0;
-
+    z-index: 15;
+    position: relative;
+    min-font-size: 30px; /* Hamin이 추가함: 최소 폰트 크기 */
 }
-
-
 
 #subtitle {
-
-    font-size: 2vw;
-
+    font-size: 2vw; /* 데스크톱 폰트 크기 유지 */
     color: white;
-
     text-align: center;
-
+    z-index: 15;
+    position: relative;
+    min-font-size: 14px; /* Hamin이 추가함: 최소 폰트 크기 */
 }
-
-
 
 label {
-
     color: white;
-
 }
-
-
 
 /* 날짜 선택 input 태그에 적용할 클래스 예시 */
-
 .date-input {
-
-  background-color: #1a1d27;
-
-  color: #e0e6ef;
-
-  border: 1px solid #333a4d;
-
-  border-radius: 5px;
-
-  padding: 8px 10px;
-
-  color-scheme: dark; /* 브라우저 기본 달력을 어둡게 표시하도록 유도 */
-
+    background-color: #1a1d27;
+    color: #e0e6ef;
+    border: 1px solid #333a4d;
+    border-radius: 5px;
+    padding: 8px 10px;
+    color-scheme: dark; /* 브라우저 기본 달력을 어둡게 표시하도록 유도 */
+    /* Hamin이 추가함: 데스크톱 기본 너비 (원래 스타일 유지) */
+    width: auto; 
+    max-width: 200px; 
+    box-sizing: border-box; /* Hamin이 추가함 */
 }
-
-
 
 /* 정렬 select 태그에 적용할 클래스 예시 */
-
 .sort-select {
-
-  background-color: #1a1d27;
-
-  color: #e0e6ef;
-
-  border: 1px solid #333a4d;
-
-  border-radius: 5px;
-
-  padding: 8px 10px;
-
-  appearance: none;
-
+    background-color: #1a1d27;
+    color: #e0e6ef;
+    border: 1px solid #333a4d;
+    border-radius: 5px;
+    padding: 8px 10px;
+    appearance: none;
+    /* Hamin이 추가함: 데스크톱 기본 너비 (원래 스타일 유지) */
+    width: auto;
+    max-width: 150px; 
+    box-sizing: border-box; /* Hamin이 추가함 */
 }
 
+/* Hamin이 추가함: #sort-container 데스크톱 기본 스타일 */
+#sort-container {
+    display: flex;
+    flex-direction: row; /* 데스크톱은 가로 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    gap: 5px; /* 라벨과 select 사이 간격 */
+}
 
 
 /* TagFilter 컴포넌트 내부 버튼에 적용할 스타일 (기존 btn 클래스와 함께 사용) */
-
-.btn-outline-primary { /* Bootstrap 기본 클래스 재정의 또는 새 클래스 사용 */
-
-  color: #a0a0a0;
-
-  border-color: #333a4d;
-
-  background-color: transparent;
-
-  transition: all 0.3s ease;
-
+.btn-outline-primary { 
+    color: #a0a0a0;
+    border-color: #333a4d;
+    background-color: transparent;
+    transition: all 0.3s ease;
 }
 
-
-
 .btn-outline-primary:hover {
+    color: #ffffff;
+    border-color: #007bff;
+    background-color: rgba(0, 123, 255, 0.1); 
+}
 
-  color: #ffffff;
+/* Hamin이 추가함: Create 버튼 스타일은 Link 컴포넌트에 TailwindCSS 클래스가 직접 적용되어 있으므로 CSS에서 직접 제어하지 않습니다. */
 
-  border-color: #007bff;
 
-  background-color: rgba(0, 123, 255, 0.1); /* 호버 시 약한 배경 */
+/* --- Hamin이 추가함: 모바일 화면 (max-width: 575.98px) 전용 스타일 --- */
+/* Bootstrap의 'sm' breakpoint 미만 */
+@media (max-width: 575.98px) {
+    .parallax-container {
+        background-image: url("./images/mobile-hero-background.png"); /* Hamin이 수정함: 모바일용 배경 (스크롤) */
+        background-attachment: scroll; /* Hamin이 수정함: 스크롤 따라 움직임 */
+        display: flex; /* Hamin이 수정함: flexbox로 변경하여 요소 세로 정렬 */
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+        padding: 10px;
+    }
 
+    .foreground-img {
+        display: none; /* Hamin이 수정함: 모바일에서 전경 이미지 숨김 */
+    }
+
+    #title {
+        font-size: 12vw; /* Hamin이 수정함: 모바일 폰트 크기 */
+        min-font-size: unset; /* Hamin이 추가함: 최소 폰트 크기 해제 */
+        margin-top: 40%;
+    }
+
+    #subtitle {
+        font-size: 5vw; /* Hamin이 수정함: 모바일 폰트 크기 */
+        min-font-size: unset; /* Hamin이 추가함: 최소 폰트 크기 해제 */
+        margin-top: 10px; /* Hamin이 추가함 */
+    }
+
+    #scroll-btn {
+        position: absolute; /* Hamin이 수정함 */
+        bottom: 20px; /* Hamin이 수정함 */
+        padding: 12px 25px; /* Hamin이 수정함 */
+        font-size: 1rem; /* Hamin이 수정함 */
+    }
+
+    #bottom-section {
+        background-attachment: scroll; /* Hamin이 수정함: 모바일에서는 스크롤 따라 움직임 */
+        padding: 10px; /* Hamin이 수정함: 모바일 패딩 */
+    }
+
+    /* Hamin이 수정함: 검색/필터/정렬 컨테이너 내부 요소들이 세로로 쌓이도록 */
+    /* .d-flex justify-content-evenly flex-wrap align-items-center gap-3 p-3 */
+    .d-flex.justify-content-evenly.flex-wrap.align-items-center.gap-3.p-3 {
+        flex-direction: column; /* Hamin이 수정함: 세로 정렬 */
+        align-items: stretch !important; /* Hamin이 수정함: 자식 요소들이 컨테이너 너비를 채우도록 */
+        gap: 15px !important; /* Hamin이 수정함: 요소들 간의 간격 증가 */
+        padding: 15px !important; /* Hamin이 수정함: 패딩 조정 */
+    }
+    
+    /* Hamin이 추가함: 각 입력/선택 요소들이 모바일에서 너비를 꽉 채우도록 */
+    .date-input,
+    .sort-select,
+    .search-input { /* Search 컴포넌트 내부의 input에도 적용될 수 있도록 */
+        width: 100% !important;
+        max-width: none !important; /* 최대 너비 제한 해제 */
+    }
+
+    #sort-container {
+        flex-direction: column; /* Hamin이 수정함: 라벨과 select를 세로로 쌓기 */
+        width: 100%; /* Hamin이 추가함 */
+        gap: 5px; /* Hamin이 추가함 */
+    }
+
+    /* Hamin이 추가함: TagFilter 컴포넌트의 버튼 컨테이너도 너비 100%로 */
+    .tag-filter-container { /* TagFilter 컴포넌트의 최상위 div 클래스명이라고 가정 */
+        width: 100% !important;
+    }
+
+    /* Hamin이 추가함: Create 버튼도 너비 100%로 */
+    .bg-blue-600.hover\:bg-blue-700.text-white.font-bold.py-2.px-4.rounded.transition-colors {
+        width: 100% !important;
+        text-align: center; /* 텍스트 중앙 정렬 */
+    }
 }
 

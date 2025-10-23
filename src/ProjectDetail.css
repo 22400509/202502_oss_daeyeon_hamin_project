@@ -1,3 +1,18 @@
+/* src/components/ProjectDetail/ProjectDetail.css */
+
+/* Hamin이 추가함: HTML과 BODY의 기본 마진/패딩을 제거하고 가로 스크롤 방지 및 box-sizing 설정 */
+/* 배경 관련 설정은 건드리지 않습니다. */
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* 가로 스크롤을 숨김 */
+    box-sizing: border-box; /* 모든 요소에 일관된 box-sizing 적용 */
+}
+*, *::before, *::after { /* 모든 요소에 box-sizing 적용 */
+    box-sizing: inherit; /* body의 box-sizing을 상속받음 */
+}
+
+/* --- Hamin이 제공받은 원본 데스크톱 스타일 (완벽히 유지) --- */
 .Detail {
     width: 800px;
     margin: 0 auto;
@@ -5,7 +20,7 @@
     gap: 20px;
 }
 
-.App{
+.App {
     background-image: url("mainPage/images/image.png");
     min-height: 100vh;
 }
@@ -30,7 +45,7 @@
     margin: 0;
 }
 
-.card-body.top{
+.card-body.top {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -46,7 +61,6 @@
     display: flex;
     gap: 10px;
 }
-
 
 #main-image {
     width: 100%;
@@ -79,4 +93,111 @@
 
 #insidecard {
     border: #585858 solid 1px;
+}
+
+/* --- Hamin이 추가함: 모바일 화면 (max-width: 575.98px) 전용 스타일 --- */
+/* 이 부분만 새로 추가되며, 데스크톱 스타일은 건드리지 않습니다. */
+@media (max-width: 575.98px) {
+    .Detail {
+        width: 100%; /* 모바일에서 너비 100% */
+        margin: 0; /* 중앙 정렬 해제, 여백 제거 */
+        padding: 0; /* 모바일에서 전체 패딩 제거 */
+        min-height: 100vh; /* 모바일에서 화면 높이를 꽉 채우도록 */
+        display: flex; /* flex 컨테이너로 변경 */
+        flex-direction: column; /* 세로로 쌓기 */
+        gap: 0; /* 내부 요소 간 간격 제거 (하위에서 관리) */
+    }
+
+    .card { /* 모바일에서 card 스타일 조정 */
+        border-radius: 0; /* 모바일에서 둥근 모서리 제거 */
+        box-shadow: none; /* 그림자 제거 */
+        min-height: 100vh; /* 모바일에서 화면 높이를 꽉 채우도록 */
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1; /* 남은 공간을 채우도록 */
+    }
+
+    .card-body.top { /* 모바일에서 상단바 패딩 조정 */
+        padding: 0.75rem 1rem;
+        border-radius: 0; /* 모바일에서 둥근 모서리 제거 */
+    }
+    .top p {
+        font-size: 1.5rem; /* 모바일에서 Astro Lens 폰트 크기 줄임 */
+    }
+
+    #ttt { /* 모바일에서 메인 카드 스타일 조정 */
+        padding: 1rem; /* 모바일에서 패딩 줄임 */
+        flex-grow: 1; /* 남은 공간을 채우도록 */
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* 이미지와 내부 카드 사이 간격 */
+    }
+    
+    #main-image {
+        max-height: 45vh; /* 모바일에서 이미지 높이 제한을 더 줄임 */
+        margin-bottom: 0; /* #ttt에 gap이 있으므로 여기서 마진 제거 */
+        border-radius: 0.25rem; /* 모바일에서 이미지 모서리 살짝 둥글게 */
+    }
+
+    #insidecard { /* 모바일에서 내부 정보 카드 스타일 조정 */
+        border-radius: 0; /* 모바일에서 둥근 모서리 제거 */
+        flex-grow: 1; /* 남은 공간을 채우도록 */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; /* 헤더, 바디, 푸터 간 간격 */
+    }
+
+    .card-header { /* 모바일에서 헤더 스타일 조정 */
+        padding: 0.75rem 1rem;
+        flex-direction: column; /* 세로로 쌓기 */
+        /* Hamin이 수정함: 제목을 가운데 정렬하기 위해 flex-start 대신 center로 변경 */
+        align-items: center; /* 가운데 정렬 */
+        border-radius: 0; /* 모바일에서 둥근 모서리 제거 */
+        gap: 0.5rem; /* 제목과 버튼 그룹 사이 간격 */
+        text-align: center; /* Hamin이 추가함: 텍스트 자체도 가운데 정렬 */
+    }
+    .card-header h2 {
+        font-size: 1.25rem; /* 모바일에서 제목 폰트 크기 줄임 */
+        margin-bottom: 0.5rem; /* Hamin이 수정함: 제목 아래 약간의 마진 추가 */
+        width: 100%; /* Hamin이 추가함: 제목이 가로 100%를 차지하도록 */
+    }
+    #btn-group {
+        width: 100%; /* 버튼 그룹 너비 100% */
+        gap: 0.5rem; /* 버튼 간 간격 */
+    }
+    #btn-group a, #btn-group button {
+        width: 100%; /* Hamin이 수정함: 버튼들이 너비 100% 차지하도록 */
+        padding: 0.6rem 0.8rem; /* 모바일 버튼 패딩 조정 */
+        font-size: 0.9rem; /* 모바일 버튼 폰트 크기 조정 */
+        text-align: center; /* Hamin이 추가함: 버튼 텍스트도 가운데 정렬 */
+        display: block; /* Hamin이 추가함: Link와 button을 블록 요소로 만들어 width 100% 적용 */
+    }
+
+    /* .card-body는 #insidecard 내부에 있으므로, #insidecard .card-body 로 선택하여 패딩 조정 */
+    #insidecard .card-body { 
+        padding: 1rem; /* 모바일에서 바디 패딩 줄임 */
+        flex-grow: 1; /* 바디가 남은 공간을 채우도록 */
+    }
+
+    .info-grid { /* 모바일에서 info-grid 스타일 조정 */
+        grid-template-columns: 1fr; /* 모바일에서 세로로 쌓도록 */
+        gap: 5px 0; /* 모바일에서 간격 조정 */
+        padding-bottom: 0.75rem; 
+        margin-bottom: 0.75rem; 
+    }
+    .info-grid dt, .info-grid dd {
+        text-align: left; /* 왼쪽 정렬 */
+    }
+
+    .keyword { /* 모바일에서 키워드 스타일 조정 */
+        font-size: 0.75rem;
+        padding: 4px 10px;
+        margin: 3px;
+    }
+
+    /* .card-footer는 #insidecard 내부에 있으므로, #insidecard .card-footer 로 선택하여 패딩 조정 */
+    #insidecard .card-footer { 
+        padding: 0.75rem 1rem;
+        border-radius: 0; /* 모바일에서 둥근 모서리 제거 */
+    }
 }
