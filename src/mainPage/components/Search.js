@@ -1,17 +1,28 @@
 // Search.js
 import React from "react";
+import { useForm } from "react-hook-form"; // ✅ Form Library (react-hook-form)
+import { Form } from "react-bootstrap"; // ✅ React UI Component Library
 import './Search.css';
 
-// Receive props from MainPage
 function Search({ searchTerm, onSearchChange }) {
+    const { register, handleSubmit } = useForm({
+        defaultValues: { search: searchTerm }
+    });
+
+    const onSubmit = (data) => {
+        onSearchChange(data.search);
+    };
+
     return (
-        <input
-            type="search"
-            className="search-input"
-            placeholder="Find your space"
-            value={searchTerm} // Value comes from props
-            onChange={(e) => onSearchChange(e.target.value)} // Call function from props
-        />
+        <Form onSubmit={handleSubmit(onSubmit)}> {/* ✅ Bootstrap Form 사용 */}
+            <Form.Control
+                type="search"
+                placeholder="Find your space"
+                className="search-input"
+                {...register('search')}
+                onChange={(e) => onSearchChange(e.target.value)}
+            />
+        </Form>
     );
 }
 
